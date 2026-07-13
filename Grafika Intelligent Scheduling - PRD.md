@@ -4,10 +4,10 @@
 **Grafika Intelligent Scheduling (GRAFIS)**
 
 ## Versi
-1.0
+1.1
 
 ## Tanggal
-Juli 2026
+13 Juli 2026
 
 ## Kategori
 Jagoan Hosting Innovation Competition (JHIC) 2026 — Web Development
@@ -704,22 +704,21 @@ Memungkinkan pengguna mencari informasi jadwal menggunakan bahasa alami.
 
 ```text
 1. Koordinator Mapel login
-2. Pilih mata pelajaran yang dikoordinasi
-3. Lihat daftar kelas yang mengambil mata pelajaran
-4. Pilih kelas tertentu
-5. Lihat slot waktu yang tersedia
-6. Pilih guru untuk diplotting
-7. Sistem validasi:
+2. Lihat daftar kelas yang mengambil mata pelajaran
+3. Pilih kelas tertentu
+4. Lihat slot waktu yang tersedia
+5. Pilih guru untuk diplotting
+6. Sistem validasi:
    a. Guru tidak bentrok? → Lanjut
    b. Guru tidak overload? → Lanjut
    c. Guru di hari aktif? → Lanjut
-8. AI Conflict Predictor otomatis dijalankan
-9. Jika konflik:
+7. AI Conflict Predictor otomatis dijalankan
+8. Jika konflik:
    a. Tampilkan konflik
    b. Tampilkan solusi AI
    c. Pilih solusi atau manual resolve
-10. Plotting tersimpan
-11. Ulangi untuk kelas berikutnya
+9. Plotting tersimpan
+10. Ulangi untuk kelas berikutnya
 ```
 
 ## 10.2 Flow Sinkronisasi & Resolusi Konflik
