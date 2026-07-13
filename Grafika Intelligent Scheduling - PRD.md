@@ -212,6 +212,8 @@ Ketika Super Admin menambahkan mata pelajaran baru:
 
 - Melihat jadwal mengajar sendiri
 - Mengatur preferensi mengajar (hari/tidak mengajar, slot waktu, prioritas mapel)
+- **Request jam/jadwal tertentu tidak bisa mengajar** (dengan alasan)
+- Melihat status request yang diajukan
 - Melihat perubahan jadwal
 - Melihat informasi ruangan
 
@@ -219,6 +221,7 @@ Ketika Super Admin menambahkan mata pelajaran baru:
 
 - Tidak dapat mengubah jadwal
 - Tidak dapat melihat jadwal guru lain
+- Request harus disetujui oleh Koordinator Mapel terkait
 
 ---
 
@@ -311,7 +314,48 @@ Ketika Super Admin menambahkan mata pelajaran baru:
 
 ---
 
-## 5.3 Schedule Management
+## 5.3 Request Jam Tidak Mengajar (Guru)
+
+| ID | Fitur | Deskripsi | Acceptance Criteria |
+|----|-------|-----------|---------------------|
+| REQ-01 | Buat Request | Guru membuat request jam/jadwal tertentu tidak bisa mengajar | - Pilih hari dan slot waktu<br>- Wajib: alasan request<br>- Wajib: durasi (sekali / berulang)<br>- Status: Menunggu Persetujuan |
+| REQ-02 | Lihat Daftar Request | Guru melihat daftar request yang diajukan | - Filter by status (Menunggu/Diterima/Ditolak)<riwayat request sebelumnya |
+| REQ-03 | Batalkan Request | Guru membatalkan request yang belum disetujui | - Hanya bisa dibatalkan jika status "Menunggu" |
+| REQ-04 | Setujui Request | Koordinator Mapel menyetujui request guru | - Konfirmasi sebelum approve<br>- Jika disetujui, slot waktu guru otomatis ditandai tidak tersedia<br>- Notifikasi ke guru |
+| REQ-05 | Tolak Request | Koordinator Mapel menolak request guru | - Wajib: alasan penolakan<br>- Notifikasi ke guru |
+| REQ-06 | Cek Ketersediaan | Koordinator Mapel melihat slot waktu yang tersedia untuk guru | - Highlight slot yang sudah ada request<br>- Tampilkan jumlah request per slot |
+
+### Alur Request
+
+```text
+1. Guru membuat request
+   ├── Pilih hari
+   ├── Pilih slot waktu (JP)
+   ├── Isi alasan
+   └── Submit
+         │
+         ▼
+2. Status: Menunggu Persetujuan
+   │
+   ├── Koordinator Mapel melihat request
+   │     ├── Setujui → Status: Diterima → Slot tidak tersedia untuk guru
+   │     └── Tolak → Status: Ditolak → Guru dapat buat request baru
+   │
+   └── Guru dapat membatalkan request (jika masih Menunggu)
+```
+
+### Validasi Request
+
+| Kondisi | Hasil |
+|---------|-------|
+| Guru sudah ada jadwal di slot tersebut | Request ditolak otomatis |
+| Guru sudah request di slot yang sama (status Menunggu) | Request duplikat, ditolak |
+| Slot waktu sudah penuh (semua guru ada jadwal) | Request ditolak, saran slot lain |
+| Guru melebihi batas request per minggu | Peringatan, tetapi masih bisa submit |
+
+---
+
+## 5.4 Schedule Management
 
 ### 5.3.1 Draft Jadwal
 
@@ -360,7 +404,7 @@ Ketika Super Admin menambahkan mata pelajaran baru:
 |----|-------|-----------|---------------------|
 | CNF-01 | Real-time Detection | Sistem mendeteksi konflik secara real-time saat plotting | - Muncul peringatan instan saat konflik terdeteksi<br>- Tidak perlu tunggu sinkronisasi manual |
 | CNF-02 | Batch Detection | Deteksi konflik seluruh jadwal sekaligus | - Dijalankan saat sinkronisasi<br>- Waktu proses < 5 detik untuk 1000+ jadwal |
-| CNF-03 | Kategori Konflik | Sistem mengkategorikan konflik | - Guru bentrok (mengajar 2 kelas bersamaan)<br>- Guru overload (melebihi batas jam/hari)<br>- Guru di hari tidak mengajar/piket<br>- Ruangan bentrok (2 kelas di ruangan sama)<br>- Jam tidak terpenuhi (kurang dari target kurikulum) |
+| CNF-03 | Kategori Konflik | Sistem mengkategorikan konflik | - Guru bentrok (mengajar 2 kelas bersamaan)<br>- Guru overload (melebihi batas jam/hari)<br>- Guru di hari tidak mengajar/piket<br>- **Guru dijam yang sudah di-request tidak mengajar**<br>- Ruangan bentrok (2 kelas di ruangan sama)<br>- Jam tidak terpenuhi (kurang dari target kurikulum) |
 
 ### 5.4.2 Tampilan Konflik
 
@@ -399,6 +443,8 @@ Ketika Super Admin menambahkan mata pelajaran baru:
 | NTF-02 | Notifikasi Konflik | Pengguna terdampak diberitahu saat konflik terdeteksi | - Tampilkan di dashboard<br>- Detail konflik |
 | NTF-03 | Notifikasi Publikasi | Guru dan siswa diberitahu saat jadwal dipublikasikan | - In-app notification<br>- Email |
 | NTF-04 | Notifikasi Perubahan | Guru diberitahu saat jadwal mengajarnya berubah | - In-app notification<br>- Detail perubahan |
+| **NTF-05** | **Notifikasi Request Diterima** | **Guru diberitahu saat request jam tidak mengajar disetujui** | **- In-app notification<br>- Detail slot yang disetujui** |
+| **NTF-06** | **Notifikasi Request Ditolak** | **Guru diberitahu saat request jam tidak mengajar ditolak** | **- In-app notification<br>- Alasan penolakan** |
 
 ---
 
@@ -569,6 +615,7 @@ Memungkinkan pengguna mencari informasi jadwal menggunakan bahasa alami.
 | Jam Pelajaran | Slot waktu | → Jadwal (one-to-many) |
 | Ruangan | Data ruangan | → Jadwal (one-to-many) |
 | Preferensi Guru | Preferensi waktu mengajar guru | → Guru (many-to-one) |
+| **Request Jam Tidak Mengajar** | **Request guru untuk jam/jadwal tertentu tidak bisa mengajar** | **→ Guru (many-to-one), → Hari (many-to-one), → Jam Pelajaran (many-to-one)** |
 | Jadwal | Jadwal pelajaran | → Kelas, Guru, Mata Pelajaran, Ruangan, Hari, Jam Pelajaran |
 | Plotting | Penugasan guru ke mata pelajaran | → Guru, Mata Pelajaran, Jadwal |
 | Konflik | Data konflik jadwal | → Jadwal (many-to-many) |
@@ -618,6 +665,22 @@ Memungkinkan pengguna mencari informasi jadwal menggunakan bahasa alami.
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
+## 7.5 Data Request Jam Tidak Mengajar
+
+| Field | Tipe | Wajib | Keterangan |
+|-------|------|-------|------------|
+| id | UUID | Ya | Primary key |
+| guru_id | UUID | Ya | Foreign key → Guru |
+| hari_id | UUID | Ya | Foreign key → Hari |
+| jam_pelajaran_id | UUID | Ya | Foreign key → Jam Pelajaran |
+| alasan | TEXT | Ya | Alasan request |
+| tipe | ENUM | Ya | sekali / berulang |
+| status | ENUM | Ya | menunggu / diterima / ditolak |
+| disetujui_oleh | UUID | Tidak | Foreign key → User (Koordinator Mapel) |
+| alasan_penolakan | TEXT | Tidak | Alasan jika ditolak |
+| created_at | TIMESTAMP | Ya | Waktu pembuatan |
+| updated_at | TIMESTAMP | Ya | Waktu update terakhir |
+
 ---
 
 # 8. Business Rules
@@ -633,6 +696,7 @@ Memungkinkan pengguna mencari informasi jadwal menggunakan bahasa alami.
 | BR-05 | Ruangan tidak boleh digunakan oleh lebih dari satu kelas pada waktu yang sama | Konflik Medium |
 | BR-06 | Mata pelajaran harus memenuhi jumlah jam pelajaran sesuai kurikulum | Konflik Low |
 | BR-07 | Jadwal hanya dapat dipublikasikan apabila tidak memiliki konflik | Blokir publikasi |
+| **BR-08** | **Guru tidak boleh diplotting di jam/jadwal yang sudah di-request tidak mengajar (status: Diterima)** | **Konflik High** |
 
 ## 8.2 Soft Constraint (Harus Dipertimbangkan)
 
@@ -774,6 +838,10 @@ Memungkinkan pengguna mencari informasi jadwal menggunakan bahasa alami.
 | 8 | Jam pelajaran berbeda antar sekolah | Konfigurable per sekolah (35/45/60 menit) |
 | 9 | Ada guru yang mengampu 2 mata pelajaran berbeda | Diperbolehkan, tapi harus diplotting terpisah oleh koordinator masing-masing |
 | 10 | Ruangan yang sama digunakan untuk 2 kelas di slot berbeda | Diperbolehkan (tidak bentrok) |
+| **11** | **Guru request jam yang sudah ada jadwal** | **Request ditolak otomatis, guru diberitahu sudah ada jadwal** |
+| **12** | **Guru request jam yang sama dengan request sebelumnya (status Menunggu)** | **Request duplikat, ditolak** |
+| **13** | **Semua guru request jam yang sama** | **Peringatan ke Koordinator Mapel, saran alternatif** |
+| **14** | **Request disetujui setelah jadwal dipublikasikan** | **Jadwal perlu di-replotting, notifikasi ke Admin Jurusan** |
 
 ---
 
