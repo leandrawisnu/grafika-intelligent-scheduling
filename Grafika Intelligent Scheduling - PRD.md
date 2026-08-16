@@ -1,7 +1,7 @@
 # Product Requirements Document (PRD)
 
 ## Nama Project
-**Grafika Intelligent Scheduling (GRAFIS)**
+**Grafika Intelligent Scheduling (GIS)**
 
 ## Versi
 1.1
@@ -18,7 +18,7 @@ Jagoan Hosting Innovation Competition (JHIC) 2026 — Web Development
 
 ## Deskripsi
 
-Grafika Intelligent Scheduling (GRAFIS) merupakan platform manajemen jadwal sekolah berbasis web yang dirancang untuk membantu proses penyusunan, sinkronisasi, dan publikasi jadwal pelajaran di sekolah, khususnya SMK.
+Grafika Intelligent Scheduling (GIS) merupakan platform manajemen jadwal sekolah berbasis web yang dirancang untuk membantu proses penyusunan, sinkronisasi, dan publikasi jadwal pelajaran di sekolah, khususnya SMK.
 
 Sistem ini berfokus pada penyelesaian salah satu permasalahan utama dalam penyusunan jadwal, yaitu bentrok jadwal guru yang sering terjadi saat proses sinkronisasi antar jurusan. Dengan memanfaatkan Artificial Intelligence (AI) sebagai Decision Support System (DSS), sistem mampu mendeteksi potensi konflik, memberikan rekomendasi penyelesaian, serta membantu pengambil keputusan dengan lebih cepat dan akurat.
 
