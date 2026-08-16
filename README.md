@@ -49,8 +49,8 @@ cd backend && go run ./cmd/server
 # ML service (butuh Python 3.12+)
 cd ml && pip install -r requirements.txt && uvicorn app.main:app --reload
 
-# Frontend (butuh Node 20+)
-cd frontend && npm run dev
+# Frontend (butuh Node 20+ / Bun)
+cd frontend && bun install && bun run dev
 ```
 
 ### Update submodule
