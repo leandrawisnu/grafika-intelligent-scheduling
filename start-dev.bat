@@ -14,6 +14,24 @@ if not exist .env (
     echo [WARN] Edit .env dan isi OPENAI_API_KEY terlebih dahulu!
 )
 
+:: Check submodules
+if not exist backend\.git (
+    echo [ERROR] Submodule backend belum di-clone.
+    echo         Jalankan: git submodule update --init --recursive
+    exit /b 1
+)
+if not exist frontend\.git (
+    echo [ERROR] Submodule frontend belum di-clone.
+    echo         Jalankan: git submodule update --init --recursive
+    exit /b 1
+)
+if not exist ml\.git (
+    echo [ERROR] Submodule ml belum di-clone.
+    echo         Jalankan: git submodule update --init --recursive
+    exit /b 1
+)
+echo [OK] Semua submodule tersedia.
+
 :: Check prerequisites
 where go >nul 2>&1 || ( echo [ERROR] Golang tidak ditemukan. & exit /b 1 )
 where node >nul 2>&1 || ( echo [ERROR] Node.js tidak ditemukan. & exit /b 1 )

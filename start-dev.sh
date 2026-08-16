@@ -16,6 +16,16 @@ if [ ! -f .env ]; then
   echo "[WARN] Edit .env dan isi OPENAI_API_KEY terlebih dahulu!"
 fi
 
+# Check submodules
+for sub in backend frontend ml; do
+  if [ ! -d "$ROOT_DIR/$sub/.git" ]; then
+    echo "[ERROR] Submodule '$sub' belum di-clone."
+    echo "        Jalankan: git submodule update --init --recursive"
+    exit 1
+  fi
+done
+echo "[OK] Semua submodule tersedia."
+
 # Check prerequisites
 command -v go >/dev/null 2>&1 || { echo "[ERROR] Golang tidak ditemukan."; exit 1; }
 command -v node >/dev/null 2>&1 || { echo "[ERROR] Node.js tidak ditemukan."; exit 1; }

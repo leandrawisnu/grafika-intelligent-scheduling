@@ -1,0 +1,9 @@
+[submodule "backend"]
+	path = backend
+	url = https://github.com/leandrawisnu/grafika-intelligent-scheduling-backend.git
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/leandrawisnu/grafika-intelligent-scheduling-frontend.git
+[submodule "ml"]
+	path = ml
+	url = https://github.com/leandrawisnu/grafika-intelligent-scheduling-ml.git
