@@ -1,0 +1,124 @@
+NASKAH PRESENTASI 7 MENIT - GRAFIKA INTELLIGENT SCHEDULING (GIS)
+JHIC 2026, Kategori Web Development, Tim Fabulous SMKN 4 Malang
+Durasi total kurang lebih 7 menit. Bahasa Indonesia, pace santai-tegas.
+Demo tidak dijelaskan di dalam 7 menit, hanya satu kalimat jembatan ke live demo terpisah.
+Copy tiap bagian di bawah ke presenter notes tiap slide di Figma.
+
+------------------------------------------------------------
+SLIDE 1 - COVER (0:00-0:30)
+------------------------------------------------------------
+Selamat pagi/siang dewan juri. Kami dari tim Fabulous, SMKN 4 Malang. Saya [Nama], bersama Abyan Frontend, Leandra Backend, dan Rafa DevOps.
+
+Kami membangun Grafika Intelligent Scheduling, platform manajemen dan sinkronisasi jadwal akademik lintas jurusan berbasis Hybrid AI.
+
+------------------------------------------------------------
+SLIDE 2 - LATAR BELAKANG MASALAH (0:30-1:30)
+------------------------------------------------------------
+Di SMKN 4 Malang ada 8 konsentrasi keahlian: RPL, DKV, Animasi, TKJ, Perhotelan, Teknik Logistik, Mekatronika, dan Grafika. Masing-masing menyusun draft jadwal sendiri-sendiri.
+
+Sinkronisasi adalah proses saat bagian Kurikulum menyatukan seluruh draft itu menjadi satu jadwal sekolah, sekaligus memastikan tidak ada guru, ruangan, atau jam yang bertabrakan lintas jurusan. Secara manual, proses ini memakan 3 sampai 7 hari, dan di situlah masalah muncul. Kami menyebutnya Efek Domino Bentrok. Ada tiga bentuknya:
+
+Pertama, bentrok guru mengajar. Satu guru ter-plotting di dua kelas beda jurusan di slot yang sama. Ini yang paling krusial.
+
+Kedua, bentrok ruangan. Lab, bengkel, dan kelas dipakai dua jurusan di jam yang sama.
+
+Ketiga, beban guru lolos. Guru yang seharusnya piket atau sudah penuh jamnya, tetap masuk plotting.
+
+Secara manual, konflik baru ketahuan di akhir, satu perbaikan merusak jadwal lain, dan validasi maksimal jam mengajar sering miss. Hasilnya revisi berhari-hari dan tetap rawan human error.
+
+------------------------------------------------------------
+SLIDE 3 - THE SOLUTION (1:30-2:10, gabung dengan Slide 4)
+------------------------------------------------------------
+Solusi kami sederhana: jangan tunggu sinkronisasi untuk menemukan konflik, cegah sejak plotting.
+
+GIS bukan sekadar aplikasi pencatat jadwal. GIS adalah otak digital yang menyatukan seluruh departemen akademik dalam satu frekuensi. Setiap slot waktu, ketersediaan guru, dan kapasitas ruangan divalidasi presisi secara real-time.
+
+------------------------------------------------------------
+SLIDE 4 - DEFINISI GIS (lanjutan, masih 1:30-2:10)
+------------------------------------------------------------
+Lanjut tanpa jeda dari slide sebelumnya, tekankan satu kalimat: GIS menghapus labirin bentrok manual untuk selamanya.
+
+------------------------------------------------------------
+SLIDE 5 - HASIL PROTOTYPE / 4 ENGINE (2:10-3:30)
+------------------------------------------------------------
+Kenapa Hybrid AI? Karena satu jenis AI tidak cukup. GIS memakai empat engine:
+
+0001, Rule-Based Engine. Menjamin akurasi 100 persen untuk hard constraint: guru ganda, ruangan ganda, overload, hari piket, dan request jam tidak mengajar. Ini harus deterministik, tidak boleh ada false negative.
+
+0002, Optimization Engine. Algoritma Constraint Satisfaction Problem. Saat konflik terjadi, sistem langsung memberi rekomendasi alternatif slot terbaik, bukan sekadar bilang ada masalah.
+
+0003, Generative Engine. LLM yang mengubah hasil kalkulasi menjadi narasi rasional berbahasa Indonesia. Kenapa solusi A dipilih, apa risikonya, apa dampaknya.
+
+0004, Query Engine. Pengguna bisa bertanya dengan bahasa alami, contoh Besok pelajaran apa, atau Guru siapa bentrok hari Senin, tanpa query teknis.
+
+Arsitekturnya: Frontend Next.js, Backend Go plus Fiber, ML service Python FastAPI plus LangChain, database PostgreSQL, semuanya jalan via Docker Compose.
+
+------------------------------------------------------------
+SLIDE 6 - BUSINESS IMPACT + MANUAL VS GIS (3:30-4:10)
+------------------------------------------------------------
+Perbandingannya jelas.
+
+Manual konflik ketahuan telat, GIS prediksi real-time saat plotting.
+Manual revisi domino berhari-hari, GIS resolusi AI instan dan terukur.
+Manual rawan miss batas jam, GIS validasi constraint presisi 100 persen, termasuk request jam tidak mengajar guru.
+
+Dampaknya: 3 sampai 7 hari menjadi hitungan menit. Waktu produktif guru kembali, jadwal 100 persen akurat sebelum publish. Sistem bahkan memblokir publikasi kalau masih ada konflik.
+
+------------------------------------------------------------
+SLIDE 7 - EKOSISTEM PENGGUNA (4:10-5:10, gabung dengan Slide 8)
+------------------------------------------------------------
+GIS menyatukan satu platform, lima peran: Super Admin kelola master data; Admin Jurusan susun draft per konsentrasi keahlian; Kurikulum atau Koordinator Mapel lakukan plotting plus sinkronisasi berbantuan AI lalu publikasi; Guru lihat jadwal, ajukan preferensi dan hari piket, terima notifikasi; Siswa akses jadwal real-time dari ponsel.
+
+------------------------------------------------------------
+SLIDE 8 - SINKRONISASI KE LAYAR SISWA (lanjutan 4:10-5:10)
+------------------------------------------------------------
+Alurnya lima langkah: 1. Draft Jurusan, 2. Plotting Guru, 3. Validasi AI, 4. Publikasi sekali klik, 5. Akses Pengguna.
+
+------------------------------------------------------------
+SLIDE 9 - PENGEMBANGAN SELANJUTNYA (5:10-5:50)
+------------------------------------------------------------
+Hasil akhir sinkronisasi harus benar, terbaru, dan mudah diakses. Empat buktinya:
+
+Satu, jadwal kelas real-time. Siswa buka jadwalnya sendiri, misal XI RPL 1, langsung dari ponsel, tanpa foto jadwal kedaluwarsa di grup.
+
+Dua, notifikasi perubahan. Setiap revisi Kurikulum terkirim lengkap dengan penanda bagian yang berubah hari itu.
+
+Tiga, info ruang dan bengkel. Mapel produktif yang pindah-pindah lab tetap jelas lokasinya tiap sesi praktik.
+
+Empat, tanya jadwal ke AI. Siswa cukup ketik Besok pelajaran apa, atau Jam ke berapa praktik, sistem yang menjawab.
+
+------------------------------------------------------------
+SLIDE 10 - MOCKUP / PROTOTYPE (5:50-6:00, lewati cepat)
+------------------------------------------------------------
+Detail tampilannya akan kami tunjukkan langsung di live demo setelah ini, termasuk layar AI Resolve Conflict dan jadwal siswa real-time.
+
+------------------------------------------------------------
+SLIDE 11 - TERIMA KASIH (6:00-7:00)
+------------------------------------------------------------
+GIS lahir dari masalah nyata sekolah kami, dibangun dengan teknologi yang siap scale ke seluruh SMK: rule yang akurat, optimasi yang cepat, dan bahasa AI yang manusiawi.
+
+Kami tim Fabulous, Abyan, Leandra, Rafa, SMKN 4 Malang. GIS: hapus labirin bentrok manual, untuk selamanya. Terima kasih. Kami siap untuk pertanyaan juri.
+
+------------------------------------------------------------
+CHEAT SHEET WAKTU
+------------------------------------------------------------
+0:00 Cover: perkenalan tim plus GIS, tanpa hook
+0:30 Masalah: definisi sinkronisasi, 8 jurusan, 3 bentrok, efek domino
+1:30 Solusi: proaktif sejak plotting
+2:10 Empat engine: Rule, CSP, LLM, Query, sebutkan berurutan
+3:30 Dampak: Manual vs GIS, 3 poin
+4:10 Alur: 5 peran, 5 langkah
+5:10 Pengembangan: 4 poin real-time, notifikasi, ruang, tanya AI
+5:50 Bridge: satu kalimat ke live demo, tanpa bahas Figma
+6:00 Penutup: scale ke SMK, terima kasih
+
+------------------------------------------------------------
+ANTISIPASI TANYA JURI (satu kalimat tiap jawaban)
+------------------------------------------------------------
+Akurasi 100 persen? Untuk hard constraint via rule engine deterministik, LLM hanya untuk narasi, bukan penentu bentrok.
+
+Beda dengan aplikasi jadwal biasa? Deteksi real-time plus resolusi CSP plus validasi request tidak mengajar, bukan sekadar CRUD.
+
+Data nyata? Pilot SMKN 4 Malang, 8 konsentrasi keahlian, skema DB dan endpoint API sudah Bahasa Indonesia.
+
+Next step? Mobile app, integrasi kalender dan Dapodik, workload analyzer, lihat PRD v1.1.
